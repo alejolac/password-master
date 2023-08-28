@@ -1,0 +1,23 @@
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  font-family: "Sedgwick Ave Display", cursive;
+  font-size: 68px;
+  color: rgb(245, 245, 245);
+}
+
+/* Generador contraseña */
+
+.generador-input {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.generador-length {
+    flex: 2;
+}
