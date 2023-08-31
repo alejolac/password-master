@@ -13,11 +13,27 @@ h1 {
 /* Generador contraseña */
 
 .generador-input {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 10% 80% 10%;
   gap: 20px;
 }
 
 .generador-length {
-    flex: 2;
+  width: 100%;
+}
+
+.generador-length {
+  font-family: 'Rubik', sans-serif;
+  font-size: 38px;
+}
+
+.generador-pass {
+  font-family: 'Rubik', sans-serif;
+  font-size: 38px;
+  letter-spacing: 26px;
+}
+
+.generador-again {
+  cursor: pointer;
+  font-size: 38px;
 }
