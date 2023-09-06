@@ -10,8 +10,8 @@ function App() {
   const [filters, setFilters] = useState({
     1: true,
     2: false,
-    3: false
-  })
+    3: false,
+  });
   //const [items, setItems] = useState([0, 1, 2]);
   //const [parent, enableAnimations] = useAutoAnimate(/* optional config */);
 
@@ -28,11 +28,11 @@ function App() {
   };
 
   const handleFilters = (type) => {
-    setFilters(preFilters => ({
-      ...preFilters, 
-      [type]: !preFilters[type]
-    }))
-  }
+    setFilters((preFilters) => ({
+      ...preFilters,
+      [type]: !preFilters[type],
+    }));
+  };
 
   return (
     <>
@@ -50,13 +50,16 @@ function App() {
                 value={length}
                 onChange={handleLength}
               />
-              <input
-                ref={parent}
-                className="generador-pass"
-                type="text"
-                value={generador}
-                readOnly
-              />
+              <div className="generador-copy">
+                <input
+                  ref={parent}
+                  className="generador-pass"
+                  type="text"
+                  value={generador}
+                  readOnly
+                />
+                <i onClick={() => navigator.clipboard.writeText(generador)} className="fa-regular fa-clipboard"></i>
+              </div>
               <div className="generador-again" onClick={handleGenerador}>
                 <i className="fa-solid fa-plus"></i>
               </div>
@@ -65,9 +68,26 @@ function App() {
           <div>
             <div className="generador-filtros">
               <h3>Filtros: </h3>
-              <Button text={"Mayuscula"} icon={"fa-solid fa-up-long"} click={filters[1]} type={1} handleClickApp={handleFilters}/>
-              <Button text={"@ Especiales &"} click={filters[2]} type={2} handleClickApp={handleFilters}/>
-              <Button text={"Numeros"} icon={"fa-solid fa-arrow-up-1-9"} click={filters[3]} type={3} handleClickApp={handleFilters}/>
+              <Button
+                text={"Mayuscula"}
+                icon={"fa-solid fa-up-long"}
+                click={filters[1]}
+                type={1}
+                handleClickApp={handleFilters}
+              />
+              <Button
+                text={"@ Especiales &"}
+                click={filters[2]}
+                type={2}
+                handleClickApp={handleFilters}
+              />
+              <Button
+                text={"Numeros"}
+                icon={"fa-solid fa-arrow-up-1-9"}
+                click={filters[3]}
+                type={3}
+                handleClickApp={handleFilters}
+              />
             </div>
           </div>
           <div>
