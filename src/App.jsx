@@ -1,19 +1,20 @@
 import { useState, useEffect } from "react";
-//import { useAutoAnimate } from "@formkit/auto-animate/react";
 import "./App.css";
 import { generatePassword } from "./components/genereatePassword.js";
 import Button from "./button.jsx";
+import Test from "./copyData.jsx" 
+import Modal from "./modal.jsx"
+
 
 function App() {
   const [generador, setGenerador] = useState("");
-  const [length, setLength] = useState(8);
+  const [length, setLength] = useState(10);
   const [filters, setFilters] = useState({
     1: true,
     2: false,
     3: false,
   });
-  //const [items, setItems] = useState([0, 1, 2]);
-  //const [parent, enableAnimations] = useAutoAnimate(/* optional config */);
+  const [mainPass, setMainPass] = useState([])
 
   useEffect(() => {
     setGenerador(generatePassword());
@@ -34,6 +35,11 @@ function App() {
     }));
   };
 
+  const handleCopy = (pass) => {
+    navigator.clipboard.writeText(pass)
+    setMainPass(prevPass => [...prevPass, pass])
+  }
+
   return (
     <>
       <main>
@@ -52,13 +58,12 @@ function App() {
               />
               <div className="generador-copy">
                 <input
-                  ref={parent}
                   className="generador-pass"
                   type="text"
                   value={generador}
                   readOnly
                 />
-                <i onClick={() => navigator.clipboard.writeText(generador)} className="fa-regular fa-clipboard"></i>
+                <i onClick={() => handleCopy(generador)} className="fa-regular fa-clipboard"></i>
               </div>
               <div className="generador-again" onClick={handleGenerador}>
                 <i className="fa-solid fa-plus"></i>
@@ -92,6 +97,8 @@ function App() {
           </div>
           <div>
             <h2>Poder de una contraseña</h2>
+            <Test passwords={mainPass}/>
+            <Modal />
           </div>
         </div>
       </main>
