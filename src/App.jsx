@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import { generatePassword } from "./components/genereatePassword.js";
 import Button from "./button.jsx";
-import Test from "./copyData.jsx" 
-import Modal from "./modal.jsx"
-
+import Test from "./copyData.jsx";
+import Modal from "./modal.jsx";
 
 function App() {
   const [generador, setGenerador] = useState("");
@@ -14,7 +13,8 @@ function App() {
     2: false,
     3: false,
   });
-  const [mainPass, setMainPass] = useState([])
+  const [mainPass, setMainPass] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     setGenerador(generatePassword());
@@ -35,10 +35,20 @@ function App() {
     }));
   };
 
-  const handleCopy = (pass) => {
-    navigator.clipboard.writeText(pass)
-    setMainPass(prevPass => [...prevPass, pass])
-  }
+  const handleCopy = () => {
+    setOpenModal(true);
+  };
+
+  const closeModal = () => {
+    setOpenModal(false);
+  };
+
+  const addNewPassword = (name) => {
+    navigator.clipboard.writeText(generador);
+    const newPass = { name: name, password: generador };
+    setMainPass((prevPass) => [...prevPass, newPass]);
+    closeModal()
+  };
 
   return (
     <>
@@ -63,7 +73,10 @@ function App() {
                   value={generador}
                   readOnly
                 />
-                <i onClick={() => handleCopy(generador)} className="fa-regular fa-clipboard"></i>
+                <i
+                  onClick={() => handleCopy(generador)}
+                  className="fa-regular fa-clipboard"
+                ></i>
               </div>
               <div className="generador-again" onClick={handleGenerador}>
                 <i className="fa-solid fa-plus"></i>
@@ -97,8 +110,13 @@ function App() {
           </div>
           <div>
             <h2>Poder de una contraseña</h2>
-            <Test passwords={mainPass}/>
-            <Modal />
+            <Test passwords={mainPass} />
+            <Modal
+              password={generador}
+              modalOpen={openModal}
+              modalClose={closeModal}
+              add={addNewPassword}
+            />
           </div>
         </div>
       </main>

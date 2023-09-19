@@ -1,9 +1,11 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import TextField from '@mui/material/TextField';
+import TextField from "@mui/material/TextField";
+import DownloadDoneIcon from "@mui/icons-material/DownloadDone";
+import { AddAPhotoSharp } from "@mui/icons-material";
+import { useState } from "react";
 
 const style = {
   position: "absolute",
@@ -15,31 +17,58 @@ const style = {
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
-  backgroundColor: "#191a25"
+  backgroundColor: "white",
+  color: "black",
 };
 
-export default function BasicModal() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+export default function BasicModal({ password, modalOpen, modalClose, add }) {
+  const handleClose = () => modalClose();
+  const [labelModal, setLabelModal] = useState("")
+
+  const handleLabel = (e) => {
+    setLabelModal(e.target.value);
+  };
+
+  const newPassword = () => add(labelModal)
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
       <Modal
-        open={open}
+        open={modalOpen}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
+          <div className="flex-modal-title">
+            <DownloadDoneIcon />
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Nueva Contraseña
+            </Typography>
+          </div>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            Asignale un nombre a tu nueva contraseña
           </Typography>
-          <TextField id="standard-basic" label="Standard" variant="standard" />
+          <TextField
+            required
+            fullWidth
+            label={"Etiqueta"}
+            id="margin-normal"
+            margin="normal"
+            onChange={handleLabel}
+            value={labelModal}
+          />
+          <TextField
+            fullWidth
+            label={"Contraseña"}
+            id="margin-none"
+            margin="normal"
+            InputProps={{
+              readOnly: true,
+            }}
+            value={password}
+          />
+          <Button onClick={newPassword} variant="contained">Agregar</Button>
         </Box>
       </Modal>
     </div>

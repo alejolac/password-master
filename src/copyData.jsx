@@ -10,6 +10,10 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import PropTypes from "prop-types";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
+import ContentPasteIcon from "@mui/icons-material/ContentPaste";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function TemporaryDrawer({ passwords }) {
   const [state, setState] = React.useState({
@@ -33,9 +37,7 @@ export default function TemporaryDrawer({ passwords }) {
     setState({ ...state, [anchor]: open });
   };
 
-  const handleList = () => {
-    
-  }
+  const handleList = () => {};
 
   const list = (anchor) => (
     <Box
@@ -49,10 +51,18 @@ export default function TemporaryDrawer({ passwords }) {
           {[...new Set(passwords)].map((password) => (
             <ListItem key={password} disablePadding>
               <ListItemButton>
+                <ListItemAvatar>
+                  <Avatar>
+                    <ContentPasteIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={password.password}
+                  secondary={password.name}
+                />
                 <ListItemIcon>
-                  <DeleteForeverIcon />
+                  <DeleteIcon className="trash-icon" />
                 </ListItemIcon>
-                <ListItemText primary={password} />
               </ListItemButton>
               <Divider />
             </ListItem>
